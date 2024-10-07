@@ -18,4 +18,7 @@ export class AppModule {}
  * - Configurar database
  * - Montar modulo configs
  * - Instalar e configurar o swagger
+ * - Adicionar docker-compose dev
+ * - Adicionar docker.dev
+ * - Adicionar env.example
  */
