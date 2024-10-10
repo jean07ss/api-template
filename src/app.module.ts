@@ -6,6 +6,7 @@ import { GlobalExceptionFilter } from '@/common/utils/filters/global-exception.f
 import { APP_FILTER } from '@nestjs/core';
 import { CommonModule } from '@/common/common.module';
 import { FeaturesModule } from '@/features/features.module';
+import { AppController } from '@/app.controller';
 
 @Module({
   imports: [
@@ -28,13 +29,13 @@ import { FeaturesModule } from '@/features/features.module';
     CommonModule,
     FeaturesModule,
   ],
-  controllers: [],
   providers: [
     {
       provide: APP_FILTER,
       useClass: GlobalExceptionFilter,
     },
   ],
+  controllers: [AppController],
 })
 export class AppModule {}
 
