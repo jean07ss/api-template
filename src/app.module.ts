@@ -3,12 +3,13 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppConfigModule } from '@/configs/config.module';
 import { GlobalExceptionFilter } from '@/common/utils/filters/global-exception.filter';
-import { APP_FILTER } from '@nestjs/core';
+import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
 import { CommonModule } from '@/common/common.module';
 import { FeaturesModule } from '@/features/features.module';
 import { AppController } from '@/app.controller';
 import { CacheModule } from '@nestjs/cache-manager';
 import * as redisStore from 'cache-manager-ioredis';
+import { LogInterceptor } from '@/common/utils/interceptors/log.interceptor';
 
 @Module({
   imports: [
@@ -46,6 +47,10 @@ import * as redisStore from 'cache-manager-ioredis';
     {
       provide: APP_FILTER,
       useClass: GlobalExceptionFilter,
+    },
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: LogInterceptor,
     },
   ],
   controllers: [AppController],
