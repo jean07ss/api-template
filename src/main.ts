@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger/dist';
+import { CORS_WHITELIST } from '@/common/utils/constants/cors-whitelist.constant';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -21,7 +22,12 @@ async function bootstrap() {
     jsonDocumentUrl: 'swagger/json',
   });
 
-  app.enableCors();
+  app.enableCors({
+    origin: CORS_WHITELIST,
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    allowedHeaders: 'Content-Type, Accept, Authorization',
+    credentials: true,
+  });
   const port = configService.get<number>('app.port') || 3000;
 
   await app.listen(port, () => {
