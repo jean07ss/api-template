@@ -19,5 +19,11 @@ export default () => ({
   logstash: {
     host: process.env.LOGSTASH_HOST || 'localhost',
     port: parseInt(process.env.LOGSTASH_PORT, 10) || 5044,
-  }
+  },
+
+  redis: {
+    host: process.env.REDIS_HOST || 'localhost',
+    port: parseInt(process.env.REDIS_PORT, 10) || 6379,
+    password: process.env.REDIS_PASSWORD || null,
+  },
 });

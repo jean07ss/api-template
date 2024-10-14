@@ -7,6 +7,8 @@ import { APP_FILTER } from '@nestjs/core';
 import { CommonModule } from '@/common/common.module';
 import { FeaturesModule } from '@/features/features.module';
 import { AppController } from '@/app.controller';
+import { CacheModule } from '@nestjs/cache-manager';
+import * as redisStore from 'cache-manager-ioredis';
 
 @Module({
   imports: [
@@ -26,6 +28,17 @@ import { AppController } from '@/app.controller';
       }),
       inject: [ConfigService],
     }),
+    CacheModule.registerAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => ({
+        store: redisStore,
+        host: configService.get<string>('redis.host'),
+        port: configService.get<number>('redis.port'),
+        password: configService.get<string>('redis.password'),
+        ttl: 600,
+      }),
+    }),
     CommonModule,
     FeaturesModule,
   ],
@@ -38,11 +51,3 @@ import { AppController } from '@/app.controller';
   controllers: [AppController],
 })
 export class AppModule {}
-
-/**
- * TODO:
- * - Configurar modulo Redis
- * - Configurar guards
- * - Configurar passport
- * - Instalar e configurar o swagger
- */

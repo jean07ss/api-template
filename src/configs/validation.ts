@@ -14,4 +14,8 @@ export const validationSchema = Joi.object({
 
   LOGSTASH_HOST: Joi.string().required(),
   LOGSTASH_PORT: Joi.number().required(),
+
+  REDIS_HOST: Joi.string().default('localhost'),
+  REDIS_PORT: Joi.number().default(6379),
+  REDIS_PASSWORD: Joi.string().allow('', null).default(null),
 });
