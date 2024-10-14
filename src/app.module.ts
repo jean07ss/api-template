@@ -14,7 +14,7 @@ import { LogInterceptor } from '@/common/utils/interceptors/log.interceptor';
 @Module({
   imports: [
     AppConfigModule,
-    /*TypeOrmModule.forRootAsync({
+    TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({
         type: 'postgres',
@@ -23,7 +23,7 @@ import { LogInterceptor } from '@/common/utils/interceptors/log.interceptor';
         username: configService.get<string>('database.username'),
         password: configService.get<string>('database.password'),
         database: configService.get<string>('database.name'),
-        entities: [__dirname + '/!**!/!*.entity{.ts,.js}'],
+        entities: [__dirname + '/**/*.entity{.ts,.js}'],
         synchronize: false,
         logging: true,
       }),
@@ -39,7 +39,7 @@ import { LogInterceptor } from '@/common/utils/interceptors/log.interceptor';
         password: configService.get<string>('redis.password'),
         ttl: 600,
       }),
-    }),*/
+    }),
     CommonModule,
     FeaturesModule,
   ],
