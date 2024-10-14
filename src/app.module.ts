@@ -42,7 +42,5 @@ export class AppModule {}
 /**
  * TODO:
  * - Configurar modulo Redis
- * - Configurar guards
- * - Configurar passport
  * - Instalar e configurar o swagger
  */
