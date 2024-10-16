@@ -3,13 +3,14 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppConfigModule } from '@/configs/config.module';
 import { GlobalExceptionFilter } from '@/common/utils/filters/global-exception.filter';
-import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
+import { APP_FILTER, APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
 import { CommonModule } from '@/common/common.module';
 import { FeaturesModule } from '@/features/features.module';
 import { AppController } from '@/app.controller';
 import { CacheModule } from '@nestjs/cache-manager';
 import * as redisStore from 'cache-manager-ioredis';
 import { LogInterceptor } from '@/common/utils/interceptors/log.interceptor';
+import { JwtAuthGuard } from '@/features/auth/guards/jwt-auth.guard';
 
 @Module({
   imports: [
@@ -51,6 +52,10 @@ import { LogInterceptor } from '@/common/utils/interceptors/log.interceptor';
     {
       provide: APP_INTERCEPTOR,
       useClass: LogInterceptor,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
     },
   ],
   controllers: [AppController],
